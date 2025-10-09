@@ -1,0 +1,8 @@
+@import "tailwindcss";
+.app-container {
+  background-color: #0f0c29; 
+
+  min-height: 100vh; 
+
+  color: #e0e7ff; 
+}

@@ -1,0 +1,434 @@
+{
+  "address": "7W1afVktzrn5oMWBRCYHGQHt3QWL3TjsSDNydDFG61nK",
+  "metadata": {
+    "name": "university_registry",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "delete_credential",
+      "discriminator": [
+        20,
+        216,
+        8,
+        226,
+        116,
+        228,
+        193,
+        12
+      ],
+      "accounts": [
+        {
+          "name": "credential_account",
+          "writable": true
+        },
+        {
+          "name": "student_account"
+        },
+        {
+          "name": "wallet",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "student_account"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "delete_university",
+      "discriminator": [
+        190,
+        226,
+        224,
+        188,
+        113,
+        228,
+        34,
+        30
+      ],
+      "accounts": [
+        {
+          "name": "university",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "university"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize_student",
+      "discriminator": [
+        112,
+        55,
+        47,
+        7,
+        217,
+        128,
+        228,
+        180
+      ],
+      "accounts": [
+        {
+          "name": "student_account",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "wallet",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "issue_credential",
+      "discriminator": [
+        255,
+        193,
+        171,
+        224,
+        68,
+        171,
+        194,
+        87
+      ],
+      "accounts": [
+        {
+          "name": "credential_account",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "university"
+        },
+        {
+          "name": "student_account"
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "university"
+          ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "degree",
+          "type": "string"
+        },
+        {
+          "name": "graduation_year",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "register_university",
+      "discriminator": [
+        116,
+        154,
+        134,
+        139,
+        74,
+        110,
+        176,
+        157
+      ],
+      "accounts": [
+        {
+          "name": "university",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  110,
+                  105,
+                  118,
+                  101,
+                  114,
+                  115,
+                  105,
+                  116,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "revoke_credential",
+      "discriminator": [
+        38,
+        123,
+        95,
+        95,
+        223,
+        158,
+        169,
+        87
+      ],
+      "accounts": [
+        {
+          "name": "credential_account",
+          "writable": true
+        },
+        {
+          "name": "university",
+          "relations": [
+            "credential_account"
+          ]
+        },
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "university"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "toggle_privacy",
+      "discriminator": [
+        101,
+        111,
+        43,
+        235,
+        177,
+        214,
+        9,
+        163
+      ],
+      "accounts": [
+        {
+          "name": "student_account",
+          "writable": true
+        },
+        {
+          "name": "wallet",
+          "signer": true,
+          "relations": [
+            "student_account"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "update_credential",
+      "discriminator": [
+        96,
+        104,
+        180,
+        182,
+        200,
+        19,
+        178,
+        1
+      ],
+      "accounts": [
+        {
+          "name": "credential_account",
+          "writable": true
+        },
+        {
+          "name": "university",
+          "relations": [
+            "credential_account"
+          ]
+        },
+        {
+          "name": "authority",
+          "signer": true,
+          "relations": [
+            "university"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "degree",
+          "type": {
+            "option": "string"
+          }
+        },
+        {
+          "name": "graduation_year",
+          "type": {
+            "option": "u16"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Credential",
+      "discriminator": [
+        145,
+        44,
+        68,
+        220,
+        67,
+        46,
+        100,
+        135
+      ]
+    },
+    {
+      "name": "Student",
+      "discriminator": [
+        173,
+        194,
+        250,
+        75,
+        154,
+        20,
+        81,
+        57
+      ]
+    },
+    {
+      "name": "University",
+      "discriminator": [
+        3,
+        230,
+        97,
+        22,
+        142,
+        52,
+        70,
+        180
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Unauthorized operation."
+    }
+  ],
+  "types": [
+    {
+      "name": "Credential",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "degree",
+            "type": "string"
+          },
+          {
+            "name": "graduation_year",
+            "type": "u16"
+          },
+          {
+            "name": "student",
+            "type": "pubkey"
+          },
+          {
+            "name": "university",
+            "type": "pubkey"
+          },
+          {
+            "name": "revoked",
+            "type": "bool"
+          },
+          {
+            "name": "privacy_enabled",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Student",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "privacy_enabled",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "University",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          }
+        ]
+      }
+    }
+  ]
+}
