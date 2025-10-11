@@ -148,6 +148,7 @@ export const Features = () => {
               initial="offscreen"
               whileInView="onscreen"
               viewport={{ once: true, amount: 0.5 }}
+              //@ts-ignore
               variants={cardVariants(index)}
               whileHover={{ y: -8, boxShadow: '0 0 40px rgba(192, 132, 252, 0.3)' }} 
             >
