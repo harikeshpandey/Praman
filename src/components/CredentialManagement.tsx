@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { 
@@ -18,7 +18,6 @@ import {
   Shield,
   Eye,
   EyeOff,
-  Trash2,
   RefreshCw,
   Award,
   XCircle
@@ -80,11 +79,9 @@ export function CredentialManagement() {
   const [studentData, setStudentData] = useState<StudentAccount | null>(null);
   const [studentName, setStudentName] = useState('');
   
- 
-  const [credentials, setCredentials] = useState<Array<{ pubkey: string; data: CredentialAccount }>>([]);
+
   const [degreeInput, setDegreeInput] = useState('');
   const [graduationYearInput, setGraduationYearInput] = useState('');
-  const [cgpaInput, setCgpaInput] = useState('');
   const [studentPubkeyInput, setStudentPubkeyInput] = useState('');
   const [verifyCredentialPubkey, setVerifyCredentialPubkey] = useState('');
   const [verifiedCredential, setVerifiedCredential] = useState<CredentialAccount | null>(null);

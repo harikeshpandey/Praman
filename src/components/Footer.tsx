@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FiTwitter, FiGithub, FiLinkedin } from 'react-icons/fi';
+import {  FiGithub, FiLinkedin } from 'react-icons/fi';
 import { FaDiscord } from 'react-icons/fa';
 import PramanLogo from "../assets/Gemini_Generated_Image_o7wiwlo7wiwlo7wi-removebg-preview.png"
 
