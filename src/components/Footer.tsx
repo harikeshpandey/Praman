@@ -76,15 +76,13 @@ export const Footer = () => {
           </p>
         </div>
         <div style={socialsContainerStyle}>
-          <SocialIcon href="https://twitter.com/your-profile">
+          <SocialIcon href="www.linkedin.com/in/harikeshpandey043">
             <FiLinkedin />
           </SocialIcon>
-          <SocialIcon href="https://github.com/your-repo">
+          <SocialIcon href="https://github.com/harikeshpandey">
             <FiGithub />
           </SocialIcon>
-          <SocialIcon href="https://discord.gg/your-invite">
-            <FaDiscord />
-          </SocialIcon>
+          
         </div>
       </div>
     </footer>
