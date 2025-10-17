@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {  FiGithub, FiLinkedin } from 'react-icons/fi';
-import { FaDiscord } from 'react-icons/fa';
 import PramanLogo from "../assets/Gemini_Generated_Image_o7wiwlo7wiwlo7wi-removebg-preview.png"
 
 const SocialIcon = ({ href, children }: { href: string; children: React.ReactNode }) => {
