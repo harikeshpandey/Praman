@@ -6,7 +6,7 @@ const SocialIcon = ({ href, children }: { href: string; children: React.ReactNod
   const [isHovered, setIsHovered] = useState(false);
 
   const iconStyle: React.CSSProperties = {
-    color: isHovered ? '#c084fc' : '#e2e8f0', // Light purple on hover
+    color: isHovered ? '#c084fc' : '#e2e8f0', 
     fontSize: '1.5rem',
     transition: 'color 0.3s ease',
     textDecoration: 'none',
