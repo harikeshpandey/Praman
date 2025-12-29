@@ -375,7 +375,7 @@ setVerifiedCredential({
   useEffect(() => {
     if (publicKey) fetchUniversity();
   }, [publicKey, fetchUniversity]);
-
+console.log(loading);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 px-6 py-10">

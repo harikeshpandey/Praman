@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { BiExit } from "react-icons/bi";
-import Papa from "papaparse";
+import * as Papa from "papaparse";
 import Fuse from "fuse.js";
 
 export default function Signup() {
@@ -121,6 +121,7 @@ export default function Signup() {
             </Field>
 
             <Field label="Password">
+              {/* @ts-ignore */}
               <Input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Secure password" />
             </Field>
 
