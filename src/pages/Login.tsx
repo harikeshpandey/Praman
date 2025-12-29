@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BiExit } from "react-icons/bi";
+import { BiExit } from "react-icons/bi";import { useEffect } from "react";
+
+
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -11,28 +13,36 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const handleLogin = async (e: any) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
+  const handleLogin = (e: any) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setError("");
 
-    try {
-      const res = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
+  if (!username || !password) {
+    setError("Please enter username and password");
+    setIsLoading(false);
+    return;
+  }
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
+  setTimeout(() => {
+    localStorage.setItem(
+      "session",
+      JSON.stringify({
+        username,
+        role: "university",
+        loggedIn: true,
+      })
+    );
 
-      navigate("/app");
-    } catch (err: any) {
-      setError(err.message || "Login failed. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    setIsLoading(false);
+    navigate("/app");
+  }, 700);
+};
+useEffect(() => {
+  const session = localStorage.getItem("session");
+  if (session) navigate("/app");
+}, []);
+
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-[#070412] text-white overflow-hidden">

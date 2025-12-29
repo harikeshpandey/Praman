@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { motion } from "framer-motion";
 import { BiExit } from "react-icons/bi";
 import * as Papa from "papaparse";
@@ -13,8 +13,10 @@ export default function Signup() {
   const [filteredUniversities, setFilteredUniversities] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [applied, setApplied] = useState(false);
 
-  const navigate = useNavigate();
+
+  // const navigate = useNavigate();
 
   useEffect(() => {
     Papa.parse("/UGC_UNILIST.csv", {
@@ -37,30 +39,33 @@ export default function Signup() {
     setFilteredUniversities(fuse.search(value).slice(0, 6).map(r => r.item));
   };
 
-  const handleSignup = async (e: any) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
+  const handleSignup = (e: any) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setError("");
 
-    try {
-      const res = await fetch("http://localhost:5000/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password, university }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message);
-      navigate("/");
-    } catch (err: any) {
-      setError(err.message || "Signup failed");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  if (!username || !password || !university) {
+    setError("Please fill all fields");
+    setIsLoading(false);
+    return;
+  }
+
+  setTimeout(() => {
+    setApplied(true);
+
+    localStorage.setItem(
+      "application",
+      JSON.stringify({ username, university, status: "Applied" })
+    );
+
+    setIsLoading(false);
+
+  }, 800);
+};
+
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-[#070412] text-white overflow-hidden">
-      {/* ambient glow */}
       <div className="absolute -top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-purple-600/20 blur-[160px] rounded-full" />
 
       <motion.div
@@ -69,7 +74,6 @@ export default function Signup() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative z-10 w-full max-w-md rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.45)]"
       >
-        {/* exit */}
         <div className="flex justify-end p-4">
           <Link to="/" className="text-white/60 hover:text-red-400 transition">
             <BiExit size={22} />
@@ -126,13 +130,23 @@ export default function Signup() {
             </Field>
 
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              disabled={isLoading}
-              className="w-full rounded-full py-4 text-lg font-semibold bg-purple-600 hover:bg-purple-500 shadow-[0_12px_30px_rgba(0,0,0,0.45)] disabled:opacity-50"
-            >
-              {isLoading ? "Applying…" : "Apply Onboarding"}
-            </motion.button>
+  whileHover={!applied ? { scale: 1.05 } : {}}
+  whileTap={!applied ? { scale: 0.95 } : {}}
+  disabled={isLoading || applied}
+  className={`w-full rounded-full py-4 text-lg font-semibold shadow-[0_12px_30px_rgba(0,0,0,0.45)]
+    ${
+      applied
+        ? "bg-green-600 cursor-not-allowed"
+        : "bg-purple-600 hover:bg-purple-500"
+    }`}
+>
+  {isLoading
+    ? "Applying…"
+    : applied
+    ? "Applied ✓"
+    : "Apply Onboarding"}
+</motion.button>
+
           </form>
         </div>
       </motion.div>

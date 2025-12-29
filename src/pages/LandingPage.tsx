@@ -3,14 +3,23 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import PramanLogo from "../assets/Gemini_Generated_Image_o7wiwlo7wiwlo7wi-removebg-preview.png";
 import { Footer } from "../components/Footer";
+import { useEffect, useState } from "react";
 
-const isLoggedin = false;
 
 
 export default function LandingPage() {
-  const { scrollYProgress } = useScroll();
+ const { scrollYProgress } = useScroll();
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const session = localStorage.getItem("session");
+    if (session) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+  
   return (
     <div className="min-h-screen bg-[#0b061a] text-white overflow-x-hidden">
       <Navbar />
@@ -43,14 +52,15 @@ export default function LandingPage() {
           </p>
 
           <div className="flex justify-center gap-6">
-            {!isLoggedin ? (
-              <>
-                <PrimaryButton to="/signup">Get Started</PrimaryButton>
-                <GhostButton to="/login">Login</GhostButton>
-              </>
-            ) : (
-              <PrimaryButton to="/app">Dashboard</PrimaryButton>
-            )}
+           {!isLoggedIn ? (
+  <>
+    <PrimaryButton to="/signup">Get Started</PrimaryButton>
+    <GhostButton to="/login">Login</GhostButton>
+  </>
+) : (
+  <PrimaryButton to="/app">Dashboard</PrimaryButton>
+)}
+
           </div>
         </motion.div>
       </section>
@@ -83,7 +93,7 @@ function Navbar() {
 >
   <div className="max-w-7xl mx-auto h-full flex justify-between items-center px-8">
     <Link to="/">
-      <img src={PramanLogo} className="h-10 w-auto block scale-450" />
+      <img src={PramanLogo} alt="Logo" className="h-10 w-auto block scale-450" />
     </Link>
 
     <div className="flex gap-6 items-center">
