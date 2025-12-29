@@ -143,7 +143,7 @@ export default function Signup() {
   {isLoading
     ? "Applying…"
     : applied
-    ? "Applied ✓"
+    ? "Applied"
     : "Apply Onboarding"}
 </motion.button>
 
